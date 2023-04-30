@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="./hangman.css">
+    <link rel="stylesheet" href="./man.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tra: '#83e6e2',
+                    },
+                    spacing: {
+                        '1': '8px',
+                        '2': '12px',
+                        '3': '16px',
+                        '4': '24px',
+                        '5': '32px',
+                        '6': '48px',
+                        '7': '100px'
+                    }
+
+                }
+            }
+        }
+    </script>
+
+
+    <link rel="stylesheet" href="../fontawesome-free-6.2.0-web/css/all.min.css">
+</head>
+
+<body>
+    <div class="container text-center text-2xl m-auto">
+        <div class="failedPopUp z-10 absolute">
+            <h2 class="oops">OOPS, YOU FAILED
+                <i class="fa-regular fa-face-sad-tear"></i>
+            </h2>
+            <button class="tryAgain">Try again?</button>
+            <button class="home">
+                <a href="./home.html">Home</a>
+                <i class="fa-solid fa-house-chimney-window" style="color: #2c446d;"></i>
+            </button>
+        </div>
+
+        <div class="hangman  relative flex">
+            <div class="pole w-full h-full relative absolute">
+                <div class="y w-full h-full absolute"></div>
+                <div class="v w-full h-full absolute"></div>
+                <div class="wire w-full h-full absolute"></div>
+                <div class="man w-full h-full relative absolute">
+                    <div class="head w-full h-full absolute">
+                        <div class="whiteSpace w-full h-full absolute"></div>
+                    </div>
+                    <div class="body w-full h-full absolute"></div>
+                    <div class="left-arm w-full h-full absolute"></div>
+                    <div class="right-arm w-full h-full absolute"></div>
+                    <div class="left-leg w-full h-full absolute"></div>
+                    <div class="right-leg w-full h-full absolute"></div>
+                </div>
+            </div>
+        </div>
+        <div class="content w-3/5 ">
+            <h1 class="title text-center text-4xl"> RESCUE ME!</h1>
+            <p class="rule"> Find out the answer to save the man is being hung the wire</p>
+            <div class="answerPlace">
+                <section class="question"> Question 1: </section>
+                <section class="answer"></section>
+                <div class="characters mt-10 text-center">
+                    <div class="characters-row1"></div>
+                    <div class="characters-row2"></div>
+                    <div class="characters-row3"></div>
+                </div>
+            </div>
+            <div id="popup" class="popup hidden relative z-10 border text-center">
+                <p class="titlePopup w-fit text-center m-auto">
+                    CONGRATULATION!
+                    <br>
+                </p>
+                <div class="img"></div>
+                <button class="nextLevel">
+                    NEXT LEVEL
+                    <i class="fa-regular fa-hand-point-right"></i>
+                </button>
+            </div>
+            <div class="tools-bar inline-block flex justify-around w-4/5 m-auto mt-9">
+                <button class="hint tool">HINT
+                    <i class="fa-regular fa-lightbulb"></i>
+                </button>
+
+                <button class="change tool">CHANGE
+                    <i class="fa-solid fa-rotate"></i>
+                </button>
+
+                <button class="eraser tool">ERASER
+                    <i class="fa-solid fa-eraser"></i>
+                </button>
+
+                <button class="openCharacter tool">OPEN CHARACTER
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </button>
+
+            </div>
+        </div>
+    </div>
+    <script type="module" src="./hangman.js"></script>
+    <script src="../fontawesome-free-6.2.0-web/js/all.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="./hangman.css"> -->
+    <link rel="stylesheet" href="./home.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tra: '#83e6e2',
+                    },
+                    spacing: {
+                        '1': '8px',
+                        '2': '12px',
+                        '3': '16px',
+                        '4': '24px',
+                        '5': '32px',
+                        '6': '48px',
+                        '7': '100px'
+                    }
+
+                }
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="container h-full w-4/5">
+        <div class="header">
+            <h2 class="text-4xl mb-4">Welcome to hangman game!</h2>
+            <p>Let's choose the topic which you like to play</p>
+        </div>
+        <div class="topics flex justify-around mt-4">
+            <div class="card">
+                <a href="./hangman.html?b=animals">
+                    <div class="borderTopic"></div>
+                    <div class="topic">
+                        <img src="./assets/images/animals/animals.png" alt="">
+                        <button class="m-2">
+                            Animals
+                        </button>
+                    </div>
+                </a>
+            </div>
+            <div class="card">
+                <a href="./hangman.html?b=fishes">
+                    <div class="borderTopic"></div>
+                    <div class="topic">
+                        <img src="./assets/images/fishes/fishes.png" alt="">
+                        <button class="m-2">
+                            Fishes
+                        </button>
+                    </div>
+                </a>
+            </div>
+
+            <div class="card">
+                <a href="./hangman.html?b=birds">
+                    <div class="borderTopic"></div>
+                    <div class="topic">
+                        <img src="./assets/images/birds/birds.png" alt="">
+                        <button class="m-2">
+                            Birds
+                        </button>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
