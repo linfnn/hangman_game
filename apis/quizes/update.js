@@ -4,7 +4,8 @@ import {QuizesSchema} from "../../db/connections.js";
 import path from 'path'
 import multer from 'multer';
 
-const CreateQuizRouter = express.Router();
+const GetQuizRouter = express.Router();
+const UpdateQuizRouter = express.Router();
 
 const uploadFolder = "uploads/images/"
 
@@ -37,8 +38,34 @@ var upload = multer({
 });
 // -------------------------------------------
 
-CreateQuizRouter.post('/create-quiz', upload.single('img_url'), async function (req, res) {
-  const {name, type, hint} = req.body;
+GetQuizRouter.get('/get-quiz', async function (req, res) {
+  const {id} = req.query
+  // console.log({img: req.file, name, type, hint});
+
+    if (id){
+      
+      await QuizesSchema.findOne({_id: id})
+        .then((result) => {
+
+          res.status(200).send({
+            message: "Get successfully",
+            data: result
+          });
+        })
+        .catch((err) => {
+           res.status(400).send({
+            message: "Get failed",
+            error: err
+          });
+        })
+    } else {
+      res.status(400).send("Bad request");
+    } 
+
+})
+
+UpdateQuizRouter.post('/create-quiz', upload.single('img_url'), async function (req, res) {
+  const {id, name, type, hint} = req.body;
   const {path} = req.file ?? {path: null};
   // console.log({img: req.file, name, type, hint});
 
@@ -49,17 +76,17 @@ CreateQuizRouter.post('/create-quiz', upload.single('img_url'), async function (
           hint,
           type
       }
-      await QuizesSchema.create(query)
+      await QuizesSchema.updateOne({_id: id}, query)
         .then((result) => {
 
           res.status(200).send({
-            message: "Upload successfully",
+            message: "Update successfully",
             data: result
           });
         })
         .catch((err) => {
            res.status(400).send({
-            message: "Upload failed",
+            message: "Update failed",
             error: err
           });
         })
@@ -69,5 +96,5 @@ CreateQuizRouter.post('/create-quiz', upload.single('img_url'), async function (
 
 })
 
-export {CreateQuizRouter};
+export {GetQuizRouter};
 

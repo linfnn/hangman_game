@@ -5,6 +5,7 @@ import  bodyParser from 'body-parser';
 
 import { ReadQuizRouter } from './apis/quizes/read.js';
 import {CreateQuizRouter } from './apis/quizes/create.js';
+import { GetQuizRouter } from './apis/quizes/update.js';
 // Creating express object
 const app = express();
  
@@ -20,6 +21,7 @@ app.use(cors());
 app.use("/uploads",express.static('uploads'));
 app.use("/",ReadQuizRouter);
 app.use("/", CreateQuizRouter);
+app.use("/", GetQuizRouter);
  
 // Server setup
 app.listen(PORT, () => {
