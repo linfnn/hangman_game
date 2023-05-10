@@ -56,7 +56,7 @@
         fetch(`http://localhost:3000/get-quiz?id=${urlParams}`, requestOptions)
             .then(response => response.text())
             .then(result => {
-                const data = JSON.parse(result).data;
+                const data = JSON.parse(result).data; 
                 // console.log(data);
                 form.querySelector('#input-1 input').value = data.name;
                 form.querySelector('#input-3 input').value = data.type;
