@@ -29,7 +29,7 @@ ul.quizes {
     
     color: rgb(167, 166, 166);
     font-size: x-large;
-}
+} 
 
 [id^="input"]>input,  [id^="input"]>select{
     padding: 0.6rem;
