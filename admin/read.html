@@ -1,0 +1,146 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Quizzes Management</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-4">
+                    <h2 class="heading-section">Quizzes Management</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="h5 mb-4 text-center">Quizzes table</h3>
+                    <div class="table-wrap">
+                        <table class="table">
+                            <thead class="thead-primary">
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Topic</th>
+                                    <!-- <th>total</th> -->
+                                    <th>&nbsp;</th>
+                                    <!-- <th>&nbsp;</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- <tr class="alert" role="alert">
+                                    <td>
+                                        <label class="checkbox-wrap checkbox-primary">
+                                            <input type="checkbox" checked>
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <div class="img" style="background-image: url(images/product-1.png);"></div>
+                                    </td>
+                                    <td>
+                                        <div class="email">
+                                            <span>Sneakers Shoes 2020 For Men </span>
+                                            <span>Fugiat voluptates quasi nemo, ipsa perferendis</span>
+                                        </div>
+                                    </td>
+                                    <td>$44.99</td>
+                                    <td class="quantity">
+                                        <div class="input-group">
+                                            <input type="text" name="quantity"
+                                                class="quantity form-control input-number" value="2" min="1" max="100">
+                                        </div>
+                                    </td>
+                                    <td>$89.98</td>
+                                    <td>
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                                        </button>
+                                    </td>
+                                </tr> -->
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/popper.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script>
+        (async () => {
+
+            const rawQuizes = await fetch("http://localhost:3000/read-quiz?type=animals")
+                .then((data) => data.json())
+                .then((result) => result.data);
+            const tbody = document.querySelector('table.table tbody');
+
+            function createQuizElement(quiz, index) {
+                const item = document.createElement("tr");
+                item.setAttribute("class","alert");
+                item.setAttribute("role", "alert")
+                item.innerHTML = `
+                
+                    <td>
+                        
+                        <label class="checkbox-wrap checkbox-primary">
+                            <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                        </label>
+                        
+                    </td >
+                    <td>
+                    <div class="img" style="background-image: url(${"http://localhost:3000/" + quiz.imageUrl.replace(/\\/g, "/")});"></div>
+                    </td>
+                    <td>
+                        <a href="/admin/edit.html?id=${quiz._id}">
+                            <div class="email">
+                                <span>${quiz.name}</span>
+                                <span>${quiz.hint}</span>
+                            </div>
+                        </a>
+                    </td>
+                    
+                    <td class="type-badge" style="color: ${quiz.type.color}">${quiz.type.text.toUpperCase()}</td>
+                    <td>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"><i class="fa fa-close"></i></span>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(item);
+                
+            }
+            const quizes = rawQuizes.map((quiz) => ({
+                ...quiz,
+                type: {
+                    color: "#99b19c",
+                    text: quiz.type
+                },
+            }));
+
+            quizes.forEach((element, index) => {
+                createQuizElement(element, index)
+            });
+        })();
+    </script>
+
+</body>
+
+</html>
