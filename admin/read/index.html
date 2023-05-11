@@ -11,17 +11,33 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="../styles.css">
 </head> 
 
 <body>
     <section class="ftco-section">
         <div class="container">
             <div class="row justify-content-center">
+                <button>
+                    <a href="/admin/upload.html">Create</a>
+                </button>
+                
                 <div class="col-md-6 text-center mb-4">
                     <h2 class="heading-section">Quizzes Management</h2>
                 </div>
+            </div>
+            <div class="row justify-content-center">
+                <select name="topic" id="topic-selector">
+                    <option value="animals">Animals</option>
+                    <option value="fishes">Fishes</option>
+                    <option value="birds">Birds</option>
+                </select>
+                <select name="pagination" id="pagination-selector">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -77,6 +93,11 @@
                 </div>
             </div>
         </div>
+        <section id="div-pagination">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+        </section>
     </section>
 
     <script src="../assets/js/jquery.min.js"></script>
@@ -84,14 +105,33 @@
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/main.js"></script>
     <script>
-        (async () => {
+        const topicSelector = document.querySelector("#topic-selector");
+        const pageSelector = document.querySelector("#pagination-selector");
+        const divPagination = document.querySelectorAll("#div-pagination > button");
 
-            const rawQuizes = await fetch("http://localhost:3000/read-quiz?type=animals")
+        topicSelector.addEventListener("change", () => {
+           
+            readRq(1, pageSelector.value, topicSelector.value)
+        })
+
+        pageSelector.addEventListener("change", () => {
+            readRq(1, pageSelector.value, topicSelector.value)
+        })
+        
+        for (let i = 0; i < divPagination.length; i++) {
+            divPagination[i].addEventListener("click", () => {
+                readRq(i+1, 5, "animals")
+            })
+        }
+        const readRq = async(page=1, limit=10, type="animals") => {
+
+            const rawQuizes = await fetch(`http://localhost:3000/read-quiz?type=${type}&limit=${limit}&page=${page}`)
                 .then((data) => data.json())
                 .then((result) => result.data);
             const tbody = document.querySelector('table.table tbody');
 
             function createQuizElement(quiz, index) {
+
                 const item = document.createElement("tr");
                 item.setAttribute("class","alert");
                 item.setAttribute("role", "alert")
@@ -110,24 +150,27 @@
                     </td>
                     <td>
                         <a href="/admin/edit.html?id=${quiz._id}">
-                            <div class="email">
-                                <span>${quiz.name}</span>
+                            <div class="keyword">
+                                <span style="font-size: 23px; text-transform: capitalize;">
+                                    ${quiz.name}
+                                </span>
                                 <span>${quiz.hint}</span>
                             </div>
                         </a>
                     </td>
                     
-                    <td class="type-badge" style="color: ${quiz.type.color}">${quiz.type.text.toUpperCase()}</td>
+                    <td class="type-badge" style="font-size: 18px; color: ${quiz.type.color}">${quiz.type.text.toUpperCase()}</td>
                     <td>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true"><i class="fa fa-close"></i></span>
                         </button>
                     </td>
                 `;
-                tbody.appendChild(item);
+                
+                return item;
                 
             }
-            const quizes = rawQuizes.map((quiz) => ({
+            const quizes = rawQuizes?.map((quiz) => ({
                 ...quiz,
                 type: {
                     color: "#99b19c",
@@ -135,10 +178,13 @@
                 },
             }));
 
-            quizes.forEach((element, index) => {
-                createQuizElement(element, index)
-            });
-        })();
+            tbody.innerHTML = null;
+
+            quizes ? quizes?.forEach((element, index) => {
+                tbody.appendChild(createQuizElement(element, index));
+            }) : null;
+        }
+        readRq(1, 5, "animals");
     </script>
 
 </body>

@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="form-container">
+        <h1>--CREATE QUIZ--</h1>
 
         <div class="crud-form" >
             <div id="input-1">
@@ -33,7 +34,7 @@
             <div id="input-4">
 
                 <label for="hint">Hint</label>
-                <input type="text" name="hint">
+                <textarea type="text" name="hint" rows="4"></textarea>
             </div>
             <div id="submit">
 
@@ -50,14 +51,14 @@
             const imgUrl = document.querySelector('[name="imgUrl"]')?.files[0];
             const quizType = document.querySelector('[name="quizType"]').value;
             const hint = document.querySelector('[name="hint"]').value;
-
- 
+            
             const uploadData =() => {
                 const formdata = new FormData();
                 formdata.append("img_url", imgUrl);
                 formdata.append("name", name);
                 formdata.append("type", quizType);
                 formdata.append("hint", hint);
+                console.log(formdata)
 
                 const requestOptions = {
                     method: 'POST',
@@ -72,7 +73,7 @@
                     .catch(error => console.log('error', error));
             }
             uploadData();
-            window.location.reload();
+            window.location.href = '/admin/read';
         })
     </script>
 </body>

@@ -11,7 +11,7 @@
 
 <body>
     <div class="form-container">
-
+        <h1>--UPDATE QUIZ--</h1>
         <div class="crud-form">
             <div id="input-1">
 
@@ -35,7 +35,7 @@
             <div id="input-4">
 
                 <label for="hint">Hint</label>
-                <input type="text" name="hint">
+                <textarea type="text" name="hint" rows="4"></textarea>
             </div>
             <div id="submit">
 
@@ -57,28 +57,27 @@
             .then(response => response.text())
             .then(result => {
                 const data = JSON.parse(result).data; 
-                // console.log(data);
-                form.querySelector('#input-1 input').value = data.name;
-                form.querySelector('#input-3 input').value = data.type;
-                form.querySelector('#input-4 input').value = data.hint;
+                console.log(data);
+                document.querySelector('#input-1 input').value = data.name;
+                document.querySelector('#input-4 textarea').value = data.hint;
+                document.querySelector(`#input-3 select`).value = data.type;
             })
             .catch(error => console.log('error', error));
-    </script>
-
-    <script>
-        document.querySelector('button#submit-button').addEventListener("click", () => {
+        document.querySelector('button#submit-button').addEventListener("click", (e) => {
             const name = document.querySelector('[name="name"]').value;
             const imgUrl = document.querySelector('[name="imgUrl"]').files[0];
             const quizType = document.querySelector('[name="quizType"]').value;
             const hint = document.querySelector('[name="hint"]').value;
 
 
-            const uploadData = () => {
+            const uploadData = (e) => {
                 const formdata = new FormData();
+                formdata.append("id", urlParams);
                 formdata.append("img_url", imgUrl);
                 formdata.append("name", name);
                 formdata.append("type", quizType);
                 formdata.append("hint", hint);
+                // console.log(formdata);
 
                 const requestOptions = {
                     method: 'POST',
@@ -86,14 +85,16 @@
                     redirect: 'follow',
 
                 };
+                console.log(name, imgUrl, quizType, hint);
 
-                fetch("http://localhost:3000/create-quiz", requestOptions)
+                fetch("http://localhost:3000/update-quiz", requestOptions)
                     .then(response => response.text())
                     .then(result => console.log(result))
                     .catch(error => console.log('error', error));
+                // e.preventDefault();
             }
-            uploadData();
-            window.location.reload();
+            uploadData(e);
+            window.location.href= '/admin/read';
         })
     </script>
 </body>

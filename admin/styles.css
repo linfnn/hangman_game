@@ -1,6 +1,9 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+h1 {
+    color: rgb(167, 166, 166);;
+}
 ul.quizes {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -31,7 +34,8 @@ ul.quizes {
     font-size: x-large;
 } 
 
-[id^="input"]>input,  [id^="input"]>select{
+[id^="input"]>input,  [id^="input"]>select, 
+[id^="input"]>textarea{
     padding: 0.6rem;
     border-radius: 10px;
     color: rgb(167, 166, 166);
@@ -91,6 +95,7 @@ ul.quizes {
     border: none;
 }
 .form-container {
+    flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
