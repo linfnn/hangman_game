@@ -38,6 +38,7 @@ var upload = multer({
 // -------------------------------------------
 
 CreateQuizRouter.post('/create-quiz', upload.single('img_url'), async function (req, res) {
+  console.log("create");
   const {name, type, hint} = req.body;
   const {path} = req.file ?? {path: null};
   // console.log({img: req.file, name, type, hint});

@@ -1,0 +1,91 @@
+[{
+  "_id": {
+    "$oid": "645cabddde404b31c057b054"
+  },
+  "name": "penguin",
+  "type": "animals",
+  "imageUrl": "uploads\\images\\img_url-1683795241603.png",
+  "hint": "This animal's wings are adapted into flippers for swimming. What is it?",
+  "createdAt": {
+    "$date": "2023-05-11T08:48:29.073Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-11T08:54:01.613Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645caf5e416f4c0b6ecfc901"
+  },
+  "name": "zebra",
+  "type": "animals",
+  "imageUrl": "uploads\\images\\img_url-1683795806277.png",
+  "hint": "This animal's stripes are unique to each individual, similar to human fingerprints. What is it?",
+  "createdAt": {
+    "$date": "2023-05-11T09:03:26.286Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-11T09:03:26.286Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645cb1c709cc18dfe4f03256"
+  },
+  "name": "badger",
+  "type": "animals",
+  "imageUrl": "uploads\\images\\img_url-1683796423991.png",
+  "hint": "This animal is known for its distinctive black and white striped face. What is it?|With a stout and powerful body, this animal is a skilled digger. What is it?",
+  "createdAt": {
+    "$date": "2023-05-11T09:13:44.008Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-11T09:13:44.008Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645cb1f909cc18dfe4f03259"
+  },
+  "name": "panda",
+  "type": "animals",
+  "imageUrl": "uploads\\images\\img_url-1683800514760.png",
+  "hint": "This animal is known for its distinctive black and white fur. What is it?|\r\nThis animal is native to China. What is it?",
+  "createdAt": {
+    "$date": "2023-05-11T09:14:33.543Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-11T10:21:54.763Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645cb21b09cc18dfe4f0325c"
+  },
+  "name": "wolf",
+  "type": "animals",
+  "imageUrl": "uploads\\images\\img_url-1683796507147.png",
+  "hint": "This animal is known for its howl, which can be heard over long distances. What is it?",
+  "createdAt": {
+    "$date": "2023-05-11T09:15:07.150Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-11T09:15:07.150Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "645cb23e09cc18dfe4f0325f"
+  },
+  "name": "cheetah",
+  "type": "animals",
+  "imageUrl": "uploads\\images\\img_url-1683796542195.png",
+  "hint": "This animal is known for being the fastest land animal in the world, reaching speeds of up to 70 mph. What is it?",
+  "createdAt": {
+    "$date": "2023-05-11T09:15:42.198Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-11T09:15:42.198Z"
+  },
+  "__v": 0
+}]

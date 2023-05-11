@@ -3,6 +3,9 @@ import express from 'express';
 import {QuizesSchema} from "../../db/connections.js";
 import path from 'path'
 import multer from 'multer';
+import { removeUploadFile } from '../../utils/removeFile.js';
+
+
 
 const GetQuizRouter = express.Router();
 const UpdateQuizRouter = express.Router();
@@ -39,6 +42,7 @@ var upload = multer({
 // -------------------------------------------
 
 GetQuizRouter.get('/get-quiz', async function (req, res) {
+  console.log("get");
   const {id} = req.query
   // console.log({img: req.file, name, type, hint});
 
@@ -64,27 +68,30 @@ GetQuizRouter.get('/get-quiz', async function (req, res) {
 
 })
 
-UpdateQuizRouter.post('/create-quiz', upload.single('img_url'), async function (req, res) {
+UpdateQuizRouter.post('/update-quiz', upload.single('img_url'), async function (req, res) {
   const {id, name, type, hint} = req.body;
   const {path} = req.file ?? {path: null};
+  console.log("update");
   // console.log({img: req.file, name, type, hint});
 
     if (name && req.file && type){
       const query = {
-          name,
+          name: name,
           imageUrl: path,
-          hint,
-          type
+          hint: hint,
+          type: type
       }
-      await QuizesSchema.updateOne({_id: id}, query)
+      const prevUrl = await QuizesSchema.findOne({_id: id}).then(res => res.imageUrl);
+      await QuizesSchema.findOneAndUpdate({_id: id}, query)
         .then((result) => {
-
+          removeUploadFile(prevUrl);
           res.status(200).send({
             message: "Update successfully",
             data: result
           });
         })
         .catch((err) => {
+          console.log( "Update failed");
            res.status(400).send({
             message: "Update failed",
             error: err
@@ -96,5 +103,5 @@ UpdateQuizRouter.post('/create-quiz', upload.single('img_url'), async function (
 
 })
 
-export {GetQuizRouter};
+export {GetQuizRouter, UpdateQuizRouter};
 

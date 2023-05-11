@@ -5,16 +5,23 @@ import {QuizesSchema} from "../../db/connections.js";
 const ReadQuizRouter = express.Router();
 
 ReadQuizRouter.get('/read-quiz', async function (req, res) {
-  const {type} = req.query;
-    if (type) {
-       await QuizesSchema.find({
-            type: type
-       }).then((result) => {
+  console.log("read");
+  const {type, limit = 5, page = 1} = req.query;
+  try{
 
-          res.status(200).send({
-            message: "Read successfully",
-            data: result
-          });
+    if (type) {
+        await QuizesSchema
+          .find( { type: type} )
+          .skip((page-1)*limit)
+          // .sort( { _id: -1 } )
+          .limit(limit)
+        .then((result) => {
+          if (result)
+            res.status(200).send({
+              message: "Read successfully",
+              data: result
+            });
+          else res.status(400).send({"message": "No data"})
         })
         .catch((err) => {
            res.status(400).send({
@@ -25,6 +32,21 @@ ReadQuizRouter.get('/read-quiz', async function (req, res) {
     } else {
         res.status(400).send("Bad request");
     }
+  } catch {
+    await QuizesSchema
+      .find()
+      .skip(page*limit)
+      // .sort( { _id: -1 } )
+      .limit(limit)
+    .then((result) => {
+    if (result)
+      res.status(200).send({
+        message: "Read successfully",
+        data: result
+      });
+    else res.status(400).send({"message": "No data"})
+  })
+  }
 })
 
 export {ReadQuizRouter}
