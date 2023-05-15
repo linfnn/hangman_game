@@ -1,0 +1,11 @@
+[
+    {
+      "animals":["elephant", "giraffe", "wolf", "penguin", "zebra", "kangaroo", "hamster", "badger", "cheetah", "panda"]
+    },
+    {
+       "birds":["flamingo", "peacock", "swan", "parrot", "turkey", "swallow", "pigeon", "eagle", "hummingbird", "pelican"]
+    },
+    {
+        "fishes":["jellyfish", "squid", "octopus", "whale", "turtle", "dolphin", "seahorse", "salmon", "lobster", "mackerel"]
+    }
+]

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Edit Quiz</title>
+</head>
+
+<body>
+    <div class="form-container">
+        <h1>--UPDATE QUIZ--</h1>
+        <div class="crud-form">
+            <div id="input-1">
+
+                <label for="name">Keyword</label>
+                <input type="text" name="name">
+            </div>
+            <div id="input-2">
+
+                <label for="imgUrl">Choose a picture</label>
+                <input type="file" name="imgUrl">
+            </div>
+            <div id="input-3">
+
+                <label for="quizType">Topic</label>
+                <select name="quizType" id="quizType">
+                    <option value="animals">animals</option>
+                    <option value="birds">birds</option>
+                    <option value="fishes">fishes</option>
+                </select>
+            </div>
+            <div id="input-4">
+
+                <label for="hint">Hint</label>
+                <textarea type="text" name="hint" rows="4"></textarea>
+            </div>
+            <div id="submit">
+
+                <button id="submit-button" class="button-shadow">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const urlParams = window.location.search.replace("?id=", "");
+        const form = document.querySelector('.crud-form')
+        const requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        fetch(`http://localhost:3000/get-quiz?id=${urlParams}`, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                const data = JSON.parse(result).data; 
+                console.log(data);
+                document.querySelector('#input-1 input').value = data.name;
+                document.querySelector('#input-4 textarea').value = data.hint;
+                document.querySelector(`#input-3 select`).value = data.type;
+            })
+            .catch(error => console.log('error', error));
+        document.querySelector('button#submit-button').addEventListener("click", (e) => {
+            const name = document.querySelector('[name="name"]').value;
+            const imgUrl = document.querySelector('[name="imgUrl"]').files[0];
+            const quizType = document.querySelector('[name="quizType"]').value;
+            const hint = document.querySelector('[name="hint"]').value;
+
+
+            const uploadData = (e) => {
+                const formdata = new FormData();
+                formdata.append("id", urlParams);
+                formdata.append("img_url", imgUrl);
+                formdata.append("name", name);
+                formdata.append("type", quizType);
+                formdata.append("hint", hint);
+                // console.log(formdata);
+
+                const requestOptions = {
+                    method: 'POST',
+                    body: formdata,
+                    redirect: 'follow',
+
+                };
+                console.log(name, imgUrl, quizType, hint);
+
+                fetch("http://localhost:3000/update-quiz", requestOptions)
+                    .then(response => response.text())
+                    .then(result => console.log(result))
+                    .catch(error => console.log('error', error));
+                // e.preventDefault();
+            }
+            uploadData(e);
+            window.location.href= '/admin/read';
+        })
+    </script>
+</body>
+
+</html>

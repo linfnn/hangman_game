@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Upload Quiz</title>
+</head>
+<body>
+    <div class="form-container">
+        <h1>--CREATE QUIZ--</h1>
+
+        <div class="crud-form" >
+            <div id="input-1">
+
+                <label for="name">Keyword</label>
+                <input type="text" name="name">
+            </div>
+            <div id="input-2"> 
+
+                <label for="imgUrl">Choose a picture</label>
+                <input  type="file" name="imgUrl">
+            </div>
+            <div id="input-3">
+
+                <label for="quizType">Topic</label>
+                <select name="quizType" id="quizType">
+                    <option value="animals">animals</option>
+                    <option value="birds">birds</option>
+                    <option value="fishes">fishes</option>
+                </select>
+            </div>
+            <div id="input-4">
+
+                <label for="hint">Hint</label>
+                <textarea type="text" name="hint" rows="4"></textarea>
+            </div>
+            <div id="submit">
+
+                <button id="submit-button" class="button-shadow">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('button#submit-button').addEventListener("click", () => {
+            const name = document.querySelector('[name="name"]').value;
+            const imgUrl = document.querySelector('[name="imgUrl"]')?.files[0];
+            const quizType = document.querySelector('[name="quizType"]').value;
+            const hint = document.querySelector('[name="hint"]').value;
+            
+            const uploadData =() => {
+                const formdata = new FormData();
+                formdata.append("img_url", imgUrl);
+                formdata.append("name", name);
+                formdata.append("type", quizType);
+                formdata.append("hint", hint);
+                console.log(formdata)
+
+                const requestOptions = {
+                    method: 'POST',
+                    body: formdata,
+                    redirect: 'follow',
+                   
+                };
+
+                fetch("http://localhost:3000/create-quiz", requestOptions)
+                    .then(response => response.text())
+                    .then(result => console.log(result))
+                    .catch(error => console.log('error', error));
+            }
+            uploadData();
+            window.location.href = '/admin/read';
+        })
+    </script>
+</body>
+
+</html>
