@@ -4,7 +4,7 @@ import cors from 'cors'
 import  bodyParser from 'body-parser';
 
 import { ReadQuizRouter } from './apis/quizes/read.js';
-import {CreateQuizRouter } from './apis/quizes/create.js';
+import {    CreateQuizRouter } from './apis/quizes/create.js';
 import { GetQuizRouter, UpdateQuizRouter } from './apis/quizes/update.js';
 import { DeleteQuizRouter } from './apis/quizes/delete.js';
 // Creating express object
@@ -19,7 +19,7 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use("/uploads",express.static('uploads'));
+app.use("/uploads",express.static('be/uploads'));
 app.use("/",ReadQuizRouter);
 app.use("/", CreateQuizRouter);
 app.use("/", GetQuizRouter);

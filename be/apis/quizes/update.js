@@ -10,7 +10,7 @@ import { removeUploadFile } from '../../utils/removeFile.js';
 const GetQuizRouter = express.Router();
 const UpdateQuizRouter = express.Router();
 
-const uploadFolder = "uploads/images/"
+const uploadFolder = "be/uploads/images/"
 
 // config file upload with destination at /uploads direction
 var storage = multer.diskStorage({

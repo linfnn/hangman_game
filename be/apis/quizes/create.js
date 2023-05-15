@@ -6,7 +6,7 @@ import multer from 'multer';
 
 const CreateQuizRouter = express.Router();
 
-const uploadFolder = "uploads/images/"
+const uploadFolder = "be/uploads/images/"
 
 // config file upload with destination at /uploads direction
 var storage = multer.diskStorage({

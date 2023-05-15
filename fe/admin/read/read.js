@@ -75,7 +75,7 @@ const readRq = async(page=1, limit=10, type="animals") => {
             <div class="img" style="background-image: url(${"http://localhost:3000/" + quiz.imageUrl.replace(/\\/g, "/")});"></div>
             </td>
             <td>
-                <a href="/admin/edit.html?id=${quiz._id}">
+                <a href="/fe/admin/edit.html?id=${quiz._id}">
                     <div class="keyword">
                         <span style="font-size: 23px; text-transform: capitalize;">
                             ${quiz.name}
